@@ -1,0 +1,6 @@
+name: Realistic
+version: '${version}'
+
+main: org.role.realistic.Realistic
+api-version: '26.1.2'
+load: POSTWORLD
