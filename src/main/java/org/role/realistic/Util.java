@@ -17,7 +17,7 @@ public class Util{
     }
 
     public void addPotionEffect(Player p, PotionEffectType type, int du, int amp) {
-        p.addPotionEffect(new PotionEffect(type, du, amp));
+        p.addPotionEffect(new PotionEffect(type, du, amp, true, false, false));
     }
 
     public int getThirsty(UUID playerUUID) {
