@@ -50,8 +50,9 @@ public class Damage extends Util implements Listener {
 
         DamageType damageCause = event.getDamageSource().getDamageType();
         UUID uuid = p.getUniqueId();
+        double finalDamage = event.getFinalDamage();
         double hp = Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).getValue();
-        if (event.getFinalDamage() > hp / 4.0) {
+        if (finalDamage > hp / 4.0) {
             addTag(uuid, "shock", "쇼크", NamedTextColor.YELLOW, 100);
             addPotionEffect(p, PotionEffectType.SLOWNESS, 100, 3);
             addPotionEffect(p, PotionEffectType.BLINDNESS, 100, 1);
@@ -59,19 +60,34 @@ public class Damage extends Util implements Listener {
 
         if (damageCause == DamageType.ARROW || damageCause == DamageType.TRIDENT) {
             if (Math.random() < 0.33) { // 더 직관적인 확률 계산
-                addTag(uuid, "bleed", "출혈", NamedTextColor.RED, 70);
+                addTag(uuid, "bleed", "출혈", NamedTextColor.RED, 50);
+            }
+        }
+
+        if (damageCause == DamageType.FALL) {
+            if (finalDamage > hp / 2.0) {
+                addTag(uuid, "insane_broken", "심각한 골절", NamedTextColor.WHITE, 300);
+                addPotionEffect(p, PotionEffectType.SLOWNESS, 300, 5);
+            } else if (finalDamage > hp / 3.0) {
+                addTag(uuid, "broken", "골절", NamedTextColor.WHITE, 200);
+                addPotionEffect(p, PotionEffectType.SLOWNESS, 200, 2);
+            } else if (finalDamage > hp / 4.0) {
+                if (Math.random() < 0.5) {
+                    addTag(uuid, "broken", "골절", NamedTextColor.WHITE, 100);
+                    addPotionEffect(p, PotionEffectType.SLOWNESS, 100, 2);
+                }
             }
         }
 
         if (damageCause == DamageType.EXPLOSION || damageCause == DamageType.PLAYER_EXPLOSION) {
-            if (event.getFinalDamage() > hp / 2.0) {
-                addTag(uuid, "weak_concussion", "약한 뇌진탕", NamedTextColor.YELLOW, 100);
+            if (finalDamage > hp / 2.0) {
+                addTag(uuid, "insane_concussion", "심각한 뇌진탕", NamedTextColor.YELLOW, 500);
                 addPotionEffect(p, PotionEffectType.NAUSEA, 100, 2);
-            } else if (event.getFinalDamage() > hp / 6.0) {
+            } else if (finalDamage > hp / 6.0) {
                 addTag(uuid, "concussion", "뇌진탕", NamedTextColor.YELLOW, 250);
                 addPotionEffect(p, PotionEffectType.NAUSEA, 250, 3);
-            } else if (event.getFinalDamage() > hp / 10.0) {
-                addTag(uuid, "insane_concussion", "심각한 뇌진탕", NamedTextColor.YELLOW, 500);
+            } else if (finalDamage > hp / 10.0) {
+                addTag(uuid, "weak_concussion", "약한 뇌진탕", NamedTextColor.YELLOW, 100);
                 addPotionEffect(p, PotionEffectType.NAUSEA, 500, 5);
             }
         }
