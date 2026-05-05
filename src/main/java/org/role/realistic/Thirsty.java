@@ -3,6 +3,7 @@ package org.role.realistic;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,20 +28,20 @@ public class Thirsty extends Util implements Listener {
                     int currentThirsty = getThirsty(uuid);
 
                     if (currentThirsty <= 0) {
-                        addTag(uuid, "deadly_thirsty", "탈수", NamedTextColor.AQUA, ticks);
+                        addTag(uuid, "deadly_thirsty", "탈수", NamedTextColor.AQUA, ticks+1);
                         p.damage(1);
                         addPotionEffect(p, PotionEffectType.MINING_FATIGUE, ticks, 3);
                         addPotionEffect(p, PotionEffectType.SLOWNESS, ticks, 4);
                     } else if (currentThirsty < 30) {
-                        addTag(uuid, "insane_thirsty", "심각한 목마름", NamedTextColor.AQUA, ticks);
+                        addTag(uuid, "insane_thirsty", "심각한 목마름", NamedTextColor.AQUA, ticks+1);
                         addPotionEffect(p, PotionEffectType.MINING_FATIGUE, ticks, 2);
                         addPotionEffect(p, PotionEffectType.SLOWNESS, ticks, 2);
                     } else if (currentThirsty < 50) {
-                        addTag(uuid, "thirsty", "목마름", NamedTextColor.AQUA, ticks);
+                        addTag(uuid, "thirsty", "목마름", NamedTextColor.AQUA, ticks+1);
                         addPotionEffect(p, PotionEffectType.SLOWNESS, ticks, 1);
                     }
 
-                    if (i == 0) {
+                    if (i == 0 && p.getGameMode() != GameMode.CREATIVE) {
                         setThirsty(uuid, currentThirsty - 1);
                         i++;
                     } else { i = 0; }
