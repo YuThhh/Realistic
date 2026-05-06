@@ -38,13 +38,18 @@ public class Inventory extends Util implements Listener {
         }
 
         ItemMeta meta = clickedItem.getItemMeta();
-        if (meta == null) return;
+        // 1. 메타데이터가 없거나 이름이 아예 없으면 통과
+        if (meta == null || !meta.hasDisplayName()) return;
 
-        // 아이템 이름으로 "잠긴 보관함"인지 확인
-        String displayName = PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(meta.displayName()));
+        // 2. 이름이 있을 때만 안전하게 가져오기
+        Component nameComponent = meta.displayName();
+        if (nameComponent == null) return;
 
+        String displayName = PlainTextComponentSerializer.plainText().serialize(nameComponent);
+
+        // 3. 타입과 이름 체크
         if (clickedItem.getType() == Material.BARRIER && displayName.contains("잠긴 보관함")) {
-            e.setCancelled(true); // 클릭 취소
+            e.setCancelled(true);
             p.updateInventory();
         }
     }
