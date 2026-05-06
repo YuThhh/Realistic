@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -65,7 +66,7 @@ public class Inventory extends Util implements Listener {
                 .decoration(TextDecoration.ITALIC, false));
         item.setItemMeta(meta);
 
-        for (int i = 9; i < 35; i++) {
+        for (int i = 9; i <= 35; i++) {
             if(i <= 17 && getLockInv(uuid, 0) == 0) {
                 List<Component> lore = new ArrayList<>();
                 lore.add(Component.text("셜커 상자를 들고 F를 눌러 잠금 해제")
@@ -92,26 +93,44 @@ public class Inventory extends Util implements Listener {
     }
 
     @EventHandler
-    public void unlockInv(PlayerInteractEvent e) {
+    public void unlockInv(PlayerSwapHandItemsEvent e) {
         Player p = e.getPlayer();
         UUID uuid = p.getUniqueId();
-        if (p.getInventory().getItemInOffHand().getType() == Material.COPPER_CHEST && getLockInv(uuid, 0) == 0) {
-            p.getInventory().setItemInOffHand(null);
+        ItemStack offHand = e.getOffHandItem();
+
+        boolean changed = false;
+
+        if (offHand.getType() == Material.COPPER_CHEST && getLockInv(uuid, 0) == 0) {
+            e.setOffHandItem(null);
+            changed = true;
             setLockInv(uuid, 0, 1);
-        } else if (p.getInventory().getItemInOffHand().getType() == Material.ENDER_CHEST && getLockInv(uuid, 1) == 0) {
-            p.getInventory().setItemInOffHand(null);
+            p.sendMessage(Component.text("1번째 줄 해금 완료"));
+        } else if (offHand.getType() == Material.ENDER_CHEST && getLockInv(uuid, 1) == 0) {
+            e.setOffHandItem(null);
+            changed = true;
             setLockInv(uuid, 1, 1);
-        } else if (p.getInventory().getItemInOffHand().getType() == Material.PINK_SHULKER_BOX && getLockInv(uuid, 2) == 0) {
-            p.getInventory().setItemInOffHand(null);
+            p.sendMessage(Component.text("2번째 줄 해금 완료"));
+        } else if (offHand.getType() == Material.SHULKER_BOX && getLockInv(uuid, 2) == 0) {
+            e.setOffHandItem(null);
+            changed = true;
             setLockInv(uuid, 2, 1);
+            p.sendMessage(Component.text("3번째 줄 해금 완료"));
         }
 
-        if (getLockInv(uuid, 0) == 1) {
-            for (int i = 9; i <= 17 ; i++) { p.getInventory().setItem(i, null); }
-        } else if (getLockInv(uuid, 1) == 1) {
-            for (int i = 18; i <= 26 ; i++) {p.getInventory().setItem(i, null);}
-        } else if (getLockInv(uuid, 2) == 1) {
-            for (int i = 27; i <= 35 ; i++) {p.getInventory().setItem(i, null);}
+        if (changed) {
+            if (getLockInv(uuid, 2) == 1) {
+                for (int i = 9; i <= 17; i++) {
+                    p.getInventory().setItem(i, null);
+                }
+            } else if (getLockInv(uuid, 1) == 1) {
+                for (int i = 18; i <= 26; i++) {
+                    p.getInventory().setItem(i, null);
+                }
+            } else if (getLockInv(uuid, 0) == 1) {
+                for (int i = 27; i <= 35; i++) {
+                    p.getInventory().setItem(i, null);
+                }
+            }
         }
     }
 }

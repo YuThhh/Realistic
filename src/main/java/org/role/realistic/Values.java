@@ -32,11 +32,8 @@ public class Values {
     }
 
     public void setLockInv(UUID uuid, int index, int value) {
-        Integer[] gets = getLockedInv(uuid);
-
+        Integer[] gets = lockInv.computeIfAbsent(uuid, k -> new Integer[]{0, 0, 0});
         gets[index] = value;
-
-        lockInv.put(uuid, gets);
     }
 
     public Integer[] getLockedInv(UUID uuid) {
