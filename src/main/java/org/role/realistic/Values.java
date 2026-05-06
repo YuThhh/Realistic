@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Values {
     private final Map<UUID, Integer> thirsty = new ConcurrentHashMap<>();
     private final Map<UUID, Map<String, Tag>> playerTags = new ConcurrentHashMap<>();
+    private final Map<UUID, Integer[]> lockInv = new ConcurrentHashMap<>();
 
     public void setThirsty(UUID PlayerUUID, int thi) {
         thirsty.put(PlayerUUID, thi);
@@ -28,5 +29,17 @@ public class Values {
 
     public void removeTag(UUID uuid, String key) {
         if (playerTags.containsKey(uuid)) playerTags.get(uuid).remove(key);
+    }
+
+    public void setLockInv(UUID uuid, int index, int value) {
+        Integer[] gets = getLockedInv(uuid);
+
+        gets[index] = value;
+
+        lockInv.put(uuid, gets);
+    }
+
+    public Integer[] getLockedInv(UUID uuid) {
+        return lockInv.getOrDefault(uuid, new Integer[]{0, 0, 0});
     }
 }

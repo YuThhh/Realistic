@@ -23,12 +23,11 @@ public final class Realistic extends JavaPlugin {
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new Damage(this, value), this);
         getServer().getPluginManager().registerEvents(new Food(this, value), this);
-        getServer().getPluginManager().registerEvents(new Inventory(), this);
+        getServer().getPluginManager().registerEvents(new Inventory(this, value), this);
         Objects.requireNonNull(getCommand("thirsty")).setExecutor(new Cmd(this, value));
         Objects.requireNonNull(getCommand("bleed")).setExecutor(new Cmd(this, value));
         thirsty.startThirsty();
 
-        lockInv();
         startActionBar();
     }
 
@@ -73,39 +72,7 @@ public final class Realistic extends JavaPlugin {
         }.runTaskTimer(this, 0L,1L);
     }
 
-    public void lockInv() {
-        ItemStack item = new ItemStack(Material.BARRIER);
-        ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text("잠긴 보관함", NamedTextColor.WHITE)
-                .decoration(TextDecoration.ITALIC, false));
-        item.setItemMeta(meta);
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            for (int i = 9; i < 36; i++) {
-                if(i <= 18) {
-                    List<Component> lore = new ArrayList<>();
-                    lore.add(Component.text("셜커 상자를 들고 F를 눌러 잠금 해제")
-                            .decoration(TextDecoration.ITALIC, false));
-                    meta.lore(lore);
-                    item.setItemMeta(meta);
-                    p.getInventory().setItem(i, item);
-                } else if (i <= 27) {
-                    List<Component> lore = new ArrayList<>();
-                    lore.add(Component.text("엔더 상자를 들고 F를 눌러 잠금 해제")
-                            .decoration(TextDecoration.ITALIC, false));
-                    meta.lore(lore);
-                    item.setItemMeta(meta);
-                    p.getInventory().setItem(i, item);
-                } else {
-                    List<Component> lore = new ArrayList<>();
-                    lore.add(Component.text("상자를 들고 F를 눌러 잠금 해제")
-                            .decoration(TextDecoration.ITALIC, false));
-                    meta.lore(lore);
-                    item.setItemMeta(meta);
-                    p.getInventory().setItem(i, item);
-                }
-            }
-        }
-    }
+
 
     @Override
     public void onDisable() {

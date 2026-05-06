@@ -40,4 +40,7 @@ public class Util{
         return values.getTags(playerUUID);
     }
 
+    public void setLockInv(UUID playerUUID, int index, int value) {values.setLockInv(playerUUID, index, value);}
+
+    public Integer getLockInv(UUID playerUUID, int index) {return values.getLockedInv(playerUUID)[index];}
 }
