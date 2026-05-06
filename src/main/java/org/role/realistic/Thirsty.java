@@ -48,7 +48,11 @@ public class Thirsty extends Util implements Listener {
 
                     if (currentThirsty <= 0 && !(p.isDead())) {
                         setThirsty(uuid, 0);
-                    } else if (p.isDead()) {
+                    } else if (currentThirsty > 100 && !(p.isDead())) {
+                        setThirsty(uuid, 100);
+                    }
+
+                    if (p.isDead()) {
                         setThirsty(uuid, 100);
                     }
                 }
