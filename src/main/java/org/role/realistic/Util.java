@@ -28,6 +28,10 @@ public class Util{
         values.setThirsty(playerUUID, thirsty);
     }
 
+    public int getStamina(UUID playerUUID) {return values.getStamina(playerUUID);}
+
+    public void setStamina(UUID playerUUID, int stamina) {values.setStamina(playerUUID, stamina);}
+
     public void addTag(UUID playerUUID,String key, String tag, NamedTextColor color, int duration) {
         values.addTag(playerUUID, key, tag, color, duration);
     }
@@ -43,4 +47,5 @@ public class Util{
     public void setLockInv(UUID playerUUID, int index, int value) {values.setLockInv(playerUUID, index, value);}
 
     public Integer getLockInv(UUID playerUUID, int index) {return values.getLockedInv(playerUUID)[index];}
+
 }

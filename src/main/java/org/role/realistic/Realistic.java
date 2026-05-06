@@ -38,6 +38,7 @@ public final class Realistic extends JavaPlugin {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     UUID uuid = p.getUniqueId();
                     int currentThirsty = value.getThirsty(uuid);
+                    int currentStamina = value.getStamina(uuid);
                     Map<String, Tag> tags = value.getTags(uuid);
 
                     List<String> toRemove = new ArrayList<>();
@@ -63,6 +64,7 @@ public final class Realistic extends JavaPlugin {
                     }
 
                     Component message = Component.text("갈증: " + currentThirsty, NamedTextColor.BLUE)
+                            .append(Component.text("기력: " + currentStamina, NamedTextColor.YELLOW))
                             .append(tagComponent);
 
                     p.sendActionBar(message);
