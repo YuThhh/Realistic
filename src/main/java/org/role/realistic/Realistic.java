@@ -2,14 +2,11 @@ package org.role.realistic;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
@@ -24,10 +21,12 @@ public final class Realistic extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Damage(this, value), this);
         getServer().getPluginManager().registerEvents(new Food(this, value), this);
         getServer().getPluginManager().registerEvents(new Inventory(this, value), this);
+        getServer().getPluginManager().registerEvents(new Stamina(this, value), this);
         Objects.requireNonNull(getCommand("thirsty")).setExecutor(new Cmd(this, value));
         Objects.requireNonNull(getCommand("bleed")).setExecutor(new Cmd(this, value));
         thirsty.startThirsty();
 
+        startCheckTag();
         startActionBar();
     }
 
@@ -64,7 +63,7 @@ public final class Realistic extends JavaPlugin {
                     }
 
                     Component message = Component.text("갈증: " + currentThirsty, NamedTextColor.BLUE)
-                            .append(Component.text("기력: " + currentStamina, NamedTextColor.YELLOW))
+                            .append(Component.text(" 기력: " + currentStamina, NamedTextColor.YELLOW))
                             .append(tagComponent);
 
                     p.sendActionBar(message);
@@ -74,7 +73,21 @@ public final class Realistic extends JavaPlugin {
         }.runTaskTimer(this, 0L,1L);
     }
 
+    public void startCheckTag() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    UUID uuid = p.getUniqueId();
+                    Map<String, Tag> tags = value.getTags(uuid);
 
+                    if (tags.containsKey("thirsty")) {
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, tags.get("thirsty").getDuration(), 1, false, false));
+                    }
+                }
+            }
+        }.runTaskTimer(this,0L,1L);
+    }
 
     @Override
     public void onDisable() {

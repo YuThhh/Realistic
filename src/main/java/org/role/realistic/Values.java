@@ -28,9 +28,9 @@ public class Values {
 
     public int getRegenTimeStamina(UUID PlayerUUID) {return regenTimeStamina.getOrDefault(PlayerUUID, 1);}
 
-    public void addTag(UUID uuid, String key, String name, NamedTextColor color, int duration) {
+    public void addTag(UUID uuid, String key, String name, NamedTextColor color, int duration, int amplifier) {
         playerTags.computeIfAbsent(uuid, k -> new ConcurrentHashMap<>())
-                .put(key, new Tag(name, color, duration));
+                .put(key, new Tag(name, color, duration, amplifier));
     }
 
     public Map<String, Tag> getTags(UUID uuid) {

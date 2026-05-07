@@ -36,8 +36,8 @@ public class Util{
 
     public void setRegenTimeStamina(UUID playerUUID, int value) {values.setRegenTimeStamina(playerUUID, value);}
 
-    public void addTag(UUID playerUUID,String key, String tag, NamedTextColor color, int duration) {
-        values.addTag(playerUUID, key, tag, color, duration);
+    public void addTag(UUID playerUUID,String key, String tag, NamedTextColor color, int duration, int amplifier) {
+        values.addTag(playerUUID, key, tag, color, duration, amplifier);
     }
 
     public void removeTag(UUID playerUUID, String tag) {

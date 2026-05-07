@@ -1,12 +1,11 @@
 package org.role.realistic;
 
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -32,12 +31,17 @@ public class Stamina extends Util implements Listener {
     }
 
     @EventHandler
-    public void onRun(PlayerMoveEvent e) {
+    public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         UUID uuid = p.getUniqueId();
         int currentStamina = getStamina(uuid);
 
         if (p.isSprinting()) {
+            setStamina(uuid, currentStamina - 1);
+            setRegenTimeStamina(uuid, 30);
+        }
+
+        if (p.isJumping()) {
             setStamina(uuid, currentStamina - 1);
             setRegenTimeStamina(uuid, 30);
         }
@@ -51,17 +55,18 @@ public class Stamina extends Util implements Listener {
                     int currentStamina = getStamina(uuid);
                     int currentRegenTime = getRegenTimeStamina(uuid);
 
-                    if (getStamina(uuid) > 100) {
-                        setStamina(uuid, 100);
-                    } else if (getStamina(uuid) <= 0) {
-                        setStamina(uuid, 0);
-                    }
-
                     if (getRegenTimeStamina(uuid) <= 0) {
                         setRegenTimeStamina(uuid, 0);
                         setStamina(uuid, currentStamina + 1);
                     } if (getRegenTimeStamina(uuid) > 0) {
                         setRegenTimeStamina(uuid, currentRegenTime - 1);
+                    }
+
+                    if (getStamina(uuid) > 100) {
+                        setStamina(uuid, 100);
+                    } else if (getStamina(uuid) <= 0) {
+                        setStamina(uuid, 0);
+                        addTag(uuid, "exhaust", "탈진", NamedTextColor.YELLOW, 2 ,1);
                     }
                 }
             }
