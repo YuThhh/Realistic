@@ -30,8 +30,4 @@ public class Biome extends Util implements Listener {
             }
         }.runTaskTimer(real, 0, 1);
     }
-
-    public double transTemp(double temp) {
-        return 50/3.0*temp + 5/3.0;
-    }
 }
