@@ -32,6 +32,10 @@ public class Util{
 
     public void setStamina(UUID playerUUID, int stamina) {values.setStamina(playerUUID, stamina);}
 
+    public int getRegenTimeStamina(UUID playerUUID) {return values.getRegenTimeStamina(playerUUID);}
+
+    public void setRegenTimeStamina(UUID playerUUID, int value) {values.setRegenTimeStamina(playerUUID, value);}
+
     public void addTag(UUID playerUUID,String key, String tag, NamedTextColor color, int duration) {
         values.addTag(playerUUID, key, tag, color, duration);
     }

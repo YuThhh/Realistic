@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Values {
     private final Map<UUID, Integer> thirsty = new ConcurrentHashMap<>();
     private final Map<UUID, Integer> stamina = new ConcurrentHashMap<>();
-    private final Map<UUID, Double> regenTimeStamina = new ConcurrentHashMap<>();
+    private final Map<UUID, Integer> regenTimeStamina = new ConcurrentHashMap<>();
     private final Map<UUID, Map<String, Tag>> playerTags = new ConcurrentHashMap<>();
     private final Map<UUID, Integer[]> lockInv = new ConcurrentHashMap<>();
 
@@ -24,9 +24,9 @@ public class Values {
 
     public int getStamina(UUID PlayerUUID) {return stamina.getOrDefault(PlayerUUID, 100);}
 
-    public void setRegenTimeStamina(UUID PlayerUUID, double value) {regenTimeStamina.put(PlayerUUID, value);}
+    public void setRegenTimeStamina(UUID PlayerUUID, int value) {regenTimeStamina.put(PlayerUUID, value);}
 
-    public double getRegenTimeStamina(UUID PlayerUUID) {return regenTimeStamina.getOrDefault(PlayerUUID, 1.0);}
+    public int getRegenTimeStamina(UUID PlayerUUID) {return regenTimeStamina.getOrDefault(PlayerUUID, 1);}
 
     public void addTag(UUID uuid, String key, String name, NamedTextColor color, int duration) {
         playerTags.computeIfAbsent(uuid, k -> new ConcurrentHashMap<>())
