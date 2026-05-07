@@ -14,6 +14,7 @@ import java.util.*;
 public final class Realistic extends JavaPlugin {
     Values value = new Values();
     Thirsty thirsty = new Thirsty(this, value);
+    Util util = new Util(this, value);
 
     @Override
     public void onEnable() {
@@ -82,7 +83,36 @@ public final class Realistic extends JavaPlugin {
                     Map<String, Tag> tags = value.getTags(uuid);
 
                     if (tags.containsKey("thirsty")) {
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, tags.get("thirsty").getDuration(), 1, false, false));
+                        util.addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("thirsty").getDuration(), tags.get("thirsty").getAmplifier());
+                    } else if (tags.containsKey("insane_thirsty")) {
+                        util.addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("insane_thirsty").getDuration(), tags.get("insane_thirsty").getAmplifier());
+                        util.addPotionEffect(p, PotionEffectType.MINING_FATIGUE, tags.get("insane_thirsty").getDuration(), tags.get("insane_thirsty").getAmplifier());
+                    } else if (tags.containsKey("deadly_thirsty")) {
+                        util.addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("deadly_thirsty").getDuration(), tags.get("deadly_thirsty").getAmplifier());
+                        util.addPotionEffect(p, PotionEffectType.MINING_FATIGUE, tags.get("deadly_thirsty").getDuration(), tags.get("deadly_thirsty").getAmplifier()-1);
+                    }
+
+                    if (tags.containsKey("exhaust")) {
+                        util.addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("exhaust").getDuration(), tags.get("exhaust").getAmplifier());
+                    }
+
+                    if (tags.containsKey("broken")) {
+                        util.addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("broken").getDuration(), tags.get("broken").getAmplifier());
+                    } else if (tags.containsKey("insane_broken")) {
+                        util.addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("insane_broken").getDuration(), tags.get("insane_broken").getAmplifier());
+                    }
+
+                    if (tags.containsKey("weak_concussion")) {
+                        util.addPotionEffect(p, PotionEffectType.NAUSEA, tags.get("weak_concussion").getDuration(), tags.get("weak_concussion").getAmplifier());
+                    } else if (tags.containsKey("concussion")) {
+                        util.addPotionEffect(p, PotionEffectType.NAUSEA, tags.get("concussion").getDuration(), tags.get("concussion").getAmplifier());
+                    } else if (tags.containsKey("insane_concussion")) {
+                        util.addPotionEffect(p, PotionEffectType.NAUSEA, tags.get("insane_concussion").getDuration(), tags.get("insane_concussion").getAmplifier());
+                    }
+
+                    if (tags.containsKey("shock")) {
+                        util.addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("shock").getDuration(), tags.get("shock").getAmplifier());
+                        util.addPotionEffect(p, PotionEffectType.BLINDNESS, tags.get("shock").getDuration(), tags.get("shock").getAmplifier()-1);
                     }
                 }
             }

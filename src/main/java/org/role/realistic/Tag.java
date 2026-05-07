@@ -6,7 +6,7 @@ public class Tag {
     private final String name;
     private final NamedTextColor color;
     private int duration;
-    private int amplifier;
+    private final int amplifier;
 
     public Tag(String name, NamedTextColor color, int duration, int amplifier) {
         this.name = name;
