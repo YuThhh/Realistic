@@ -52,4 +52,6 @@ public class Util{
 
     public Integer getLockInv(UUID playerUUID, int index) {return values.getLockedInv(playerUUID)[index];}
 
+    public double getTemperature(Player p) {return p.getLocation().getBlock().getTemperature();}
+
 }

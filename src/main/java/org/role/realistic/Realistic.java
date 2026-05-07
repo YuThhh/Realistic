@@ -12,7 +12,6 @@ import java.util.*;
 public final class Realistic extends JavaPlugin {
     Values value = new Values();
     Thirsty thirsty = new Thirsty(this, value);
-    Util util = new Util(this, value);
 
     @Override
     public void onEnable() {
@@ -21,6 +20,7 @@ public final class Realistic extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Food(this, value), this);
         getServer().getPluginManager().registerEvents(new Inventory(this, value), this);
         getServer().getPluginManager().registerEvents(new Stamina(this, value), this);
+        getServer().getPluginManager().registerEvents(new Biome(this, value), this);
         getServer().getPluginManager().registerEvents(new TagManager(this, value), this);
         Objects.requireNonNull(getCommand("thirsty")).setExecutor(new Cmd(this, value));
         Objects.requireNonNull(getCommand("bleed")).setExecutor(new Cmd(this, value));
