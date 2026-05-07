@@ -23,7 +23,7 @@ public class Stamina extends Util implements Listener {
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
         UUID uuid = p.getUniqueId();
-        int currentStamina = getStamina(uuid);
+        double currentStamina = getStamina(uuid);
 
         setStamina(uuid, currentStamina - 1);
 
@@ -34,10 +34,10 @@ public class Stamina extends Util implements Listener {
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         UUID uuid = p.getUniqueId();
-        int currentStamina = getStamina(uuid);
+        double currentStamina = getStamina(uuid);
 
         if (p.isSprinting()) {
-            setStamina(uuid, currentStamina - 1);
+            setStamina(uuid, currentStamina - 0.2);
             setRegenTimeStamina(uuid, 30);
         }
 
@@ -52,7 +52,7 @@ public class Stamina extends Util implements Listener {
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     UUID uuid = p.getUniqueId();
-                    int currentStamina = getStamina(uuid);
+                    double currentStamina = getStamina(uuid);
                     int currentRegenTime = getRegenTimeStamina(uuid);
 
                     if (getRegenTimeStamina(uuid) <= 0) {

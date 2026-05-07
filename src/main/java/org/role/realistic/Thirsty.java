@@ -14,7 +14,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.UUID;
 
 public class Thirsty extends Util implements Listener {
-    int i = 0;
     final int ticks = 20;
     public Thirsty(Realistic real, Values values) {
         super(real, values);
@@ -25,7 +24,7 @@ public class Thirsty extends Util implements Listener {
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()){
                     UUID uuid = p.getUniqueId();
-                    int currentThirsty = getThirsty(uuid);
+                    double currentThirsty = getThirsty(uuid);
 
                     if (currentThirsty <= 0) {
                         addTag(uuid, "deadly_thirsty", "탈수", NamedTextColor.AQUA, ticks+1, 3);
@@ -41,10 +40,9 @@ public class Thirsty extends Util implements Listener {
                         addPotionEffect(p, PotionEffectType.SLOWNESS, ticks, 1);
                     }
 
-                    if (i == 0 && p.getGameMode() != GameMode.CREATIVE) {
-                        setThirsty(uuid, currentThirsty - 1);
-                        i++;
-                    } else { i = 0; }
+                    if (p.getGameMode() != GameMode.CREATIVE) {
+                        setThirsty(uuid, currentThirsty - 0.1);
+                    }
 
                     if (currentThirsty <= 0 && !(p.isDead())) {
                         setThirsty(uuid, 0);

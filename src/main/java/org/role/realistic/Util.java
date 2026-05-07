@@ -20,17 +20,17 @@ public class Util{
         p.addPotionEffect(new PotionEffect(type, du, amp, true, false, false));
     }
 
-    public int getThirsty(UUID playerUUID) {
+    public double getThirsty(UUID playerUUID) {
         return values.getThirsty(playerUUID);
     }
 
-    public void setThirsty(UUID playerUUID, int thirsty) {
+    public void setThirsty(UUID playerUUID, double thirsty) {
         values.setThirsty(playerUUID, thirsty);
     }
 
-    public int getStamina(UUID playerUUID) {return values.getStamina(playerUUID);}
+    public double getStamina(UUID playerUUID) {return values.getStamina(playerUUID);}
 
-    public void setStamina(UUID playerUUID, int stamina) {values.setStamina(playerUUID, stamina);}
+    public void setStamina(UUID playerUUID, double stamina) {values.setStamina(playerUUID, stamina);}
 
     public int getRegenTimeStamina(UUID playerUUID) {return values.getRegenTimeStamina(playerUUID);}
 
@@ -53,5 +53,9 @@ public class Util{
     public Integer getLockInv(UUID playerUUID, int index) {return values.getLockedInv(playerUUID)[index];}
 
     public double getTemperature(Player p) {return p.getLocation().getBlock().getTemperature();}
+
+    public double transTemp(double temp) {
+        return 50/3.0*temp + 5/3.0;
+    }
 
 }

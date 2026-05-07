@@ -6,23 +6,23 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Values {
-    private final Map<UUID, Integer> thirsty = new ConcurrentHashMap<>();
-    private final Map<UUID, Integer> stamina = new ConcurrentHashMap<>();
+    private final Map<UUID, Double> thirsty = new ConcurrentHashMap<>();
+    private final Map<UUID, Double> stamina = new ConcurrentHashMap<>();
     private final Map<UUID, Integer> regenTimeStamina = new ConcurrentHashMap<>();
     private final Map<UUID, Map<String, Tag>> playerTags = new ConcurrentHashMap<>();
     private final Map<UUID, Integer[]> lockInv = new ConcurrentHashMap<>();
 
-    public void setThirsty(UUID PlayerUUID, int thi) {
+    public void setThirsty(UUID PlayerUUID, double thi) {
         thirsty.put(PlayerUUID, thi);
     }
 
-    public int getThirsty(UUID PlayerUUID) {
-        return thirsty.getOrDefault(PlayerUUID, 100);
+    public double getThirsty(UUID PlayerUUID) {
+        return thirsty.getOrDefault(PlayerUUID, 100.0);
     }
 
-    public void setStamina(UUID PlayerUUID, int value) {stamina.put(PlayerUUID, value);}
+    public void setStamina(UUID PlayerUUID, double value) {stamina.put(PlayerUUID, value);}
 
-    public int getStamina(UUID PlayerUUID) {return stamina.getOrDefault(PlayerUUID, 100);}
+    public double getStamina(UUID PlayerUUID) {return stamina.getOrDefault(PlayerUUID, 100.0);}
 
     public void setRegenTimeStamina(UUID PlayerUUID, int value) {regenTimeStamina.put(PlayerUUID, value);}
 

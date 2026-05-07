@@ -20,16 +20,16 @@ public class Food extends Util implements Listener {
         Player p = e.getPlayer();
         UUID uuid = p.getUniqueId();
         Material item = e.getItem().getType();
-        int currentThirsty = getThirsty(uuid);
+        double currentThirsty = getThirsty(uuid);
 
         if (item == Material.POTION || item == Material.MILK_BUCKET) {
-            setThirsty(uuid, currentThirsty + 20);
+            setThirsty(uuid, currentThirsty + 45);
         } else if (item == Material.APPLE) {
-            setThirsty(uuid, currentThirsty + 7);
-        } else if (item == Material.MELON_SLICE) {
             setThirsty(uuid, currentThirsty + 10);
+        } else if (item == Material.MELON_SLICE) {
+            setThirsty(uuid, currentThirsty + 15);
         } else if (item == Material.SWEET_BERRIES || item == Material.GLOW_BERRIES) {
-            setThirsty(uuid, currentThirsty + 3);
+            setThirsty(uuid, currentThirsty + 6);
         }
     }
 }
