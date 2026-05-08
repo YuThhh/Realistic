@@ -65,7 +65,7 @@ public final class Realistic extends JavaPlugin {
 
                     Component message = Component.text("갈증: " + (int) currentThirsty, NamedTextColor.BLUE)
                             .append(Component.text(" 기력: " + (int) currentStamina, NamedTextColor.YELLOW))
-                            .append(Component.text("온도: " + currentTemp))
+                            .append(Component.text(" 온도: " + String.format("%.1f", currentTemp), NamedTextColor.GOLD))
                             .append(tagComponent);
 
                     p.sendActionBar(message);

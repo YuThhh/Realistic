@@ -58,4 +58,11 @@ public class Util{
         return 50/3.0*temp + 5/3.0;
     }
 
+    public void setLastJump(UUID uuid, int jump) {values.setLastjump(uuid, jump);}
+
+    public int getLastJump(UUID uuid) {return values.getLastJump(uuid);}
+
+    public void setLastRun(UUID uuid, double run) {values.setLastRun(uuid, run);}
+
+    public double getLastRun(UUID uuid) {return values.getLastRun(uuid);}
 }
