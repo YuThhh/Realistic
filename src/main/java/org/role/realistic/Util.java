@@ -62,7 +62,7 @@ public class Util{
 
     public int getLastJump(UUID uuid) {return values.getLastJump(uuid);}
 
-    public void setLastRun(UUID uuid, double run) {values.setLastRun(uuid, run);}
+    public void setPlayerTemp(UUID uuid, double temp) {values.setPlayerTemp(uuid, temp);}
 
-    public double getLastRun(UUID uuid) {return values.getLastRun(uuid);}
+    public double getPlayerTemp(UUID uuid) {return values.getPlayerTemp(uuid);}
 }

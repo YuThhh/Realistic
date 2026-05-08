@@ -11,6 +11,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Map;
 import java.util.UUID;
 
 public class Thirsty extends Util implements Listener {
@@ -25,22 +26,21 @@ public class Thirsty extends Util implements Listener {
                 for (Player p : Bukkit.getOnlinePlayers()){
                     UUID uuid = p.getUniqueId();
                     double currentThirsty = getThirsty(uuid);
+                    Map<String, Tag> tags = getTags(uuid);
 
                     if (currentThirsty <= 0) {
                         addTag(uuid, "deadly_thirsty", "탈수", NamedTextColor.AQUA, ticks+1, 3);
                         p.damage(1);
-                        addPotionEffect(p, PotionEffectType.MINING_FATIGUE, ticks, 3);
-                        addPotionEffect(p, PotionEffectType.SLOWNESS, ticks, 4);
                     } else if (currentThirsty < 30) {
                         addTag(uuid, "insane_thirsty", "심각한 목마름", NamedTextColor.AQUA, ticks+1, 2);
-                        addPotionEffect(p, PotionEffectType.MINING_FATIGUE, ticks, 2);
-                        addPotionEffect(p, PotionEffectType.SLOWNESS, ticks, 2);
                     } else if (currentThirsty < 50) {
                         addTag(uuid, "thirsty", "목마름", NamedTextColor.AQUA, ticks+1, 1);
-                        addPotionEffect(p, PotionEffectType.SLOWNESS, ticks, 1);
                     }
 
                     if (p.getGameMode() != GameMode.CREATIVE) {
+                        if (tags.containsKey("hot")) {
+                            setThirsty(uuid, currentThirsty - 0.15);
+                        }
                         setThirsty(uuid, currentThirsty - 0.1);
                     }
 

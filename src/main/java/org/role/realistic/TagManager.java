@@ -56,6 +56,12 @@ public class TagManager extends Util implements Listener {
                         addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("shock").getDuration(), tags.get("shock").getAmplifier());
                         addPotionEffect(p, PotionEffectType.BLINDNESS, tags.get("shock").getDuration(), tags.get("shock").getAmplifier()-1);
                     }
+
+                    if (tags.containsKey("cold")) {
+                        addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("cold").getDuration(), tags.get("cold").getAmplifier());
+                    } else if (tags.containsKey("hot")) {
+                        addPotionEffect(p, PotionEffectType.NAUSEA, tags.get("hot").getDuration(), tags.get("hot").getAmplifier());
+                    }
                 }
             }
         }.runTaskTimer(real,0L,1L);

@@ -25,6 +25,7 @@ public final class Realistic extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new TagManager(this, value), this);
         Objects.requireNonNull(getCommand("thirsty")).setExecutor(new Cmd(this, value));
         Objects.requireNonNull(getCommand("bleed")).setExecutor(new Cmd(this, value));
+        Objects.requireNonNull(getCommand("temp")).setExecutor(new Cmd(this, value));
         thirsty.startThirsty();
 
         startActionBar();
@@ -38,7 +39,7 @@ public final class Realistic extends JavaPlugin {
                     UUID uuid = p.getUniqueId();
                     double currentThirsty = value.getThirsty(uuid);
                     double currentStamina = value.getStamina(uuid);
-                    double currentTemp = util.transTemp(util.getTemperature(p));
+                    double currentTemp = util.getPlayerTemp(uuid);
                     Map<String, Tag> tags = value.getTags(uuid);
 
                     List<String> toRemove = new ArrayList<>();

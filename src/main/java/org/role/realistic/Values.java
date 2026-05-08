@@ -13,6 +13,7 @@ public class Values {
     private final Map<UUID, Integer[]> lockInv = new ConcurrentHashMap<>();
     private final Map<UUID, Integer> lastjump = new ConcurrentHashMap<>();
     private final Map<UUID, Double> lastRun = new ConcurrentHashMap<>();
+    private final Map<UUID, Double> playerTemp = new ConcurrentHashMap<>();
 
     public void setThirsty(UUID PlayerUUID, double thi) {
         thirsty.put(PlayerUUID, thi);
@@ -63,4 +64,8 @@ public class Values {
     public void setLastRun(UUID uuid, double run) {lastRun.put(uuid, run);}
 
     public double getLastRun(UUID uuid) {return lastRun.getOrDefault(uuid, 0.0);}
+
+    public void setPlayerTemp(UUID uuid, double temp) {playerTemp.put(uuid, temp);}
+
+    public double getPlayerTemp(UUID uuid) {return playerTemp.getOrDefault(uuid, 25.0);}
 }

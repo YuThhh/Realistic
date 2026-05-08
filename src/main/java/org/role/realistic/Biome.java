@@ -1,9 +1,12 @@
 package org.role.realistic;
 
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.UUID;
 
 public class Biome extends Util implements Listener {
     public Biome(Realistic real, Values values) {
@@ -17,14 +20,19 @@ public class Biome extends Util implements Listener {
             @Override
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {
+                    UUID uuid = p.getUniqueId();
                     double temp = transTemp(getTemperature(p));
+                    double playerTemp = getPlayerTemp(uuid);
+                    double deltaTemp = (playerTemp - temp)*0.0005;
 
-                    if (temp < 0) {
+                    if (playerTemp != temp) {
+                        setPlayerTemp(uuid, playerTemp - deltaTemp);
+                    }
 
-                    } else if (temp < 25) {
-
-                    } else if (temp < 35) {
-
+                    if (playerTemp <= 5) {
+                        addTag(uuid, "cold", "추위", NamedTextColor.AQUA, 2, 1);
+                    } else if (playerTemp >= 28) {
+                        addTag(uuid, "hot", "더위", NamedTextColor.RED, 2, 1);
                     }
                 }
             }
