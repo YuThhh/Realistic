@@ -42,6 +42,7 @@ public final class Realistic extends JavaPlugin {
                     double currentTemp = util.getPlayerTemp(uuid);
                     Map<String, Tag> tags = value.getTags(uuid);
 
+                    // 태그 지속 시간 감소 및 만료된 태그 제거
                     List<String> toRemove = new ArrayList<>();
 
                     for (Map.Entry<String, Tag> entry : tags.entrySet()) {
