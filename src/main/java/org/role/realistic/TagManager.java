@@ -76,6 +76,24 @@ public class TagManager extends Util implements Listener {
                         }
                     } else {setTempTick(uuid, getTempTick(uuid) - 1);}
 
+                    if (tags.containsKey("frost")) {
+                        double playerTemp = getPlayerTemp(uuid);
+                        addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("frost").getDuration(), tags.get("frost").getAmplifier());
+                        setPlayerTemp(uuid, playerTemp - 0.05);
+                    } else if (tags.containsKey("heat") || tags.containsKey("melt")) {
+                        addPotionEffect(p, PotionEffectType.NAUSEA, tags.get("heat").getDuration(), tags.get("heat").getAmplifier());
+                        double playerTemp = getPlayerTemp(uuid);
+                        setPlayerTemp(uuid, playerTemp + 0.05);
+                    }
+
+                    if (tags.containsKey("cooling")) {
+                        double playerTemp = getPlayerTemp(uuid);
+                        setPlayerTemp(uuid, playerTemp - 0.008 * tags.get("cooling").getAmplifier());
+                    } else if (tags.containsKey("warming")) {
+                        double playerTemp = getPlayerTemp(uuid);
+                        setPlayerTemp(uuid, playerTemp + 0.008 * tags.get("warming").getAmplifier());
+                    }
+
                     if (getTempTick(uuid) <= 0) {
                         setTempTick(uuid, 0);
                     }

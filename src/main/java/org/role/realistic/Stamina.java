@@ -49,7 +49,9 @@ public class Stamina extends Util implements Listener {
                     if (currentJump > getLastJump(uuid)) {
                         setLastJump(uuid, currentJump);
 
-                        if (tags.containsKey("hot")) {
+                        if (tags.containsKey("heat")) {
+                            currentStamina -= 0.-85;
+                        } else if (tags.containsKey("hot")) {
                             currentStamina -= 0.45;
                         } else {
                             currentStamina -= 0.3;
@@ -63,7 +65,9 @@ public class Stamina extends Util implements Listener {
                     // 2. 소모 단계 (달리기)
                     if (p.isSprinting()) {
 
-                        if (tags.containsKey("hot")) {
+                        if (tags.containsKey("heat")) {
+                            currentStamina -= 0.55;
+                        } else if (tags.containsKey("hot"))  {
                             currentStamina -= 0.3;
                         } else {
                             currentStamina -= 0.2;

@@ -1,11 +1,12 @@
 package org.role.realistic;
 
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
@@ -43,12 +44,32 @@ public class Food extends Util implements Listener {
         Material item = e.getItem().getType();
 
         if (e.getClickedBlock() == null) return;
+        Block targetBlock = p.getTargetBlockExact(5);
 
-        if (item == Material.AIR && p.isSneaking() && e.getClickedBlock().getType() == Material.WATER && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        if (targetBlock == null) return;
+
+        // TODO 다시 손봐야함 (물 클릭해도 회복 안됨)
+        if (item == Material.AIR && p.isSneaking() && targetBlock.getType() == Material.WATER && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)) {
             double currentThirsty = getThirsty(uuid);
-            setThirsty(uuid, currentThirsty + 20);
+            setThirsty(uuid, currentThirsty + 10);
+            if (Math.random() <= 0.5) {
+                addTag(uuid, "intoxic", "중독", NamedTextColor.GREEN, 600, 1);
+            }
         }
 
-
+        if (item == Material.SNOWBALL && p.isSneaking() && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)) {
+            e.setCancelled(true);
+            e.getItem().setAmount(e.getItem().getAmount() - 1);
+            addTag(uuid, "cooling", "시원함", NamedTextColor.BLUE, 600, 1);
+        }
+        if (item == Material.PACKED_ICE && p.isSneaking() && (e.getAction() == Action.RIGHT_CLICK_BLOCK ||  e.getAction() == Action.RIGHT_CLICK_AIR)) {
+            e.setCancelled(true);
+            e.getItem().setAmount(e.getItem().getAmount() - 1);
+            addTag(uuid, "cooling", "시원함", NamedTextColor.BLUE, 600, 3);
+        }
+        if ((item == Material.COAL || item == Material.CHARCOAL) && p.isSneaking() && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)) {
+            e.getItem().setAmount(e.getItem().getAmount() - 1);
+            addTag(uuid, "warming", "따뜻함", NamedTextColor.GOLD, 600, 1);
+        }
     }
 }
