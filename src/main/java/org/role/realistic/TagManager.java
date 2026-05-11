@@ -64,7 +64,16 @@ public class TagManager extends Util implements Listener {
                     }
 
                     //TODO 감염 효과 추가
-                    if (tags.containsKey("infection")) {}
+                    if (tags.containsKey("infection")) {
+                        addPotionEffect(p, PotionEffectType.HUNGER, tags.get("infection").getDuration(), tags.get("infection").getAmplifier());
+                        addPotionEffect(p, PotionEffectType.WEAKNESS, tags.get("infection").getDuration(), tags.get("infection").getAmplifier());
+                        if (tags.get("infection").getDuration() < 2) {
+                            addTag(uuid, "infection2", "감염", NamedTextColor.DARK_RED, 2000, 2);
+                        }
+                    } else if (tags.containsKey("infection2")) {
+                        addPotionEffect(p, PotionEffectType.HUNGER, tags.get("infection2").getDuration(), tags.get("infection2").getAmplifier());
+                        addPotionEffect(p, PotionEffectType.WEAKNESS, tags.get("infection2").getDuration(), tags.get("infection2").getAmplifier());
+                    }
 
                     // 온도 관련 태그
                     if (tags.containsKey("cold")) {
@@ -91,23 +100,25 @@ public class TagManager extends Util implements Listener {
                         setPlayerTemp(uuid, playerTemp + 0.05);
                     }
 
-                    //TODO 화상효과 추가
+                    //화상효과
                     if (tags.containsKey("burn") && Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).getValue() > 20) {
                         Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25 * 0.1 * tags.get("burn").getAmplifier());
                     } else if (!tags.containsKey("burn") && Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).getValue() < 25) {
                         Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25);
                     }
 
-                    //TODO 녹아내림 효과 추가
+                    //녹아내림 효과
                     if (tags.containsKey("melt")) {
                         addPotionEffect(p, PotionEffectType.WEAKNESS, tags.get("melt").getDuration(), tags.get("melt").getAmplifier());
                     }
 
+                    //수분 중독 효과
                     if (tags.containsKey("intoxic")) {
                         double currentThirsty = getThirsty(uuid);
                         setThirsty(uuid, currentThirsty - 0.03 * tags.get("intoxic").getAmplifier());
                     }
 
+                    //시원함 및 따뜻함 효과
                     if (tags.containsKey("cooling")) {
                         double playerTemp = getPlayerTemp(uuid);
                         setPlayerTemp(uuid, playerTemp - 0.008 * tags.get("cooling").getAmplifier());

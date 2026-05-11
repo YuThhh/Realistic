@@ -42,6 +42,10 @@ public class Damage extends Util implements Listener {
                         addPotionEffect(p, PotionEffectType.NAUSEA, tags.get("heat").getDuration(), tags.get("heat").getAmplifier());
                         p.damage(2, DamageSource.builder(DamageType.ON_FIRE).build());
                     }
+
+                    if (tags.containsKey("infection2")) {
+                        p.damage(Math.random()*tags.get("infection2").getAmplifier());
+                    }
                 }
             }
         }.runTaskTimer(real, 0, 4);
@@ -103,7 +107,7 @@ public class Damage extends Util implements Listener {
 
             if (damagerType.equals(EntityType.ZOMBIE)) {
                 if (Math.random() <= 0.05) {
-                    addTag(uuid, "infection", "감염", NamedTextColor.DARK_RED, 4000, 1);
+                    addTag(uuid, "infection", "감염", NamedTextColor.RED, 4000, 1);
                 }
             }
         }
