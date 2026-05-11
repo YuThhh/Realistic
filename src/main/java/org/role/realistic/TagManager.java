@@ -24,7 +24,12 @@ public class TagManager extends Util implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
-        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25);
+        UUID uuid = p.getUniqueId();
+        Map<String, Tag> tags = getTags(uuid);
+        if (!tags.containsKey("burn") && (!tags.containsKey("infection") || !tags.containsKey("infection2"))) {
+            Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25);
+        }
+
     }
 
     public void startCheckTag() {
