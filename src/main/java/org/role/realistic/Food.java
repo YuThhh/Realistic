@@ -1,10 +1,12 @@
 package org.role.realistic;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 import java.util.UUID;
@@ -31,5 +33,22 @@ public class Food extends Util implements Listener {
         } else if (item == Material.SWEET_BERRIES || item == Material.GLOW_BERRIES) {
             setThirsty(uuid, currentThirsty + 6);
         }
+    }
+
+    @EventHandler
+    public void onUse(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        UUID uuid = p.getUniqueId();
+        if (e.getItem() == null) return;
+        Material item = e.getItem().getType();
+
+        if (e.getClickedBlock() == null) return;
+
+        if (item == Material.AIR && p.isSneaking() && e.getClickedBlock().getType() == Material.WATER && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            double currentThirsty = getThirsty(uuid);
+            setThirsty(uuid, currentThirsty + 20);
+        }
+
+
     }
 }
