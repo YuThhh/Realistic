@@ -80,7 +80,7 @@ public class TagManager extends Util implements Listener {
                         double playerTemp = getPlayerTemp(uuid);
                         addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("frost").getDuration(), tags.get("frost").getAmplifier());
                         setPlayerTemp(uuid, playerTemp - 0.05);
-                    } else if (tags.containsKey("heat") || tags.containsKey("melt")) {
+                    } else if (tags.containsKey("heat")) {
                         addPotionEffect(p, PotionEffectType.NAUSEA, tags.get("heat").getDuration(), tags.get("heat").getAmplifier());
                         double playerTemp = getPlayerTemp(uuid);
                         setPlayerTemp(uuid, playerTemp + 0.05);
@@ -88,6 +88,10 @@ public class TagManager extends Util implements Listener {
 
                     //TODO 화상효과 추가
                     if (tags.containsKey("burn")) {}
+
+                    //TODO 녹아내림 효과 추가
+                    if (tags.containsKey("melt")) {}
+
                     if (tags.containsKey("intoxic")) {
                         double currentThirsty = getThirsty(uuid);
                         setThirsty(uuid, currentThirsty - 0.03 * tags.get("intoxic").getAmplifier());
