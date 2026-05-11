@@ -63,7 +63,7 @@ public class TagManager extends Util implements Listener {
                         addPotionEffect(p, PotionEffectType.BLINDNESS, tags.get("shock").getDuration(), tags.get("shock").getAmplifier()-1);
                     }
 
-                    //TODO 감염 효과 추가
+                    //감염 효과
                     if (tags.containsKey("infection")) {
                         addPotionEffect(p, PotionEffectType.HUNGER, tags.get("infection").getDuration(), tags.get("infection").getAmplifier());
                         addPotionEffect(p, PotionEffectType.WEAKNESS, tags.get("infection").getDuration(), tags.get("infection").getAmplifier());
