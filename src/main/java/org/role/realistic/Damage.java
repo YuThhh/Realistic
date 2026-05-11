@@ -21,10 +21,10 @@ public class Damage extends Util implements Listener {
 
     public Damage(Realistic real, Values values) {
         super(real, values);
-        bleed();
+        startEffect();
     }
 
-    public void bleed() {
+    public void startEffect() {
         new BukkitRunnable() {
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {

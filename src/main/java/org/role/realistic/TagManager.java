@@ -71,6 +71,10 @@ public class TagManager extends Util implements Listener {
                             addTag(uuid, "heat", "열사병", NamedTextColor.RED, 600, 1);
                         }
                     } else {setTempTick(uuid, getTempTick(uuid) - 1);}
+
+                    if (getTempTick(uuid) <= 0) {
+                        setTempTick(uuid, 0);
+                    }
                 }
             }
         }.runTaskTimer(real,0L,1L);
