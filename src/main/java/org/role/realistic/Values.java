@@ -32,7 +32,7 @@ public class Values {
     public int getRegenTimeStamina(UUID PlayerUUID) {return regenTimeStamina.getOrDefault(PlayerUUID, 1);}
 
     public void addTag(UUID uuid, String key, String name, NamedTextColor color, int duration, int amplifier) {
-        playerTags.computeIfAbsent(uuid, k -> new ConcurrentHashMap<>())
+        playerTags.computeIfAbsent(uuid, _ -> new ConcurrentHashMap<>())
                 .put(key, new Tag(name, color, duration, amplifier));
     }
 
@@ -45,7 +45,7 @@ public class Values {
     }
 
     public void setLockInv(UUID uuid, int index, int value) {
-        Integer[] gets = lockInv.computeIfAbsent(uuid, k -> new Integer[]{0, 0, 0});
+        Integer[] gets = lockInv.computeIfAbsent(uuid, _ -> new Integer[]{0, 0, 0});
         gets[index] = value;
     }
 
