@@ -3,6 +3,7 @@ package org.role.realistic;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -27,8 +28,13 @@ public final class Realistic extends JavaPlugin {
         Objects.requireNonNull(getCommand("bleed")).setExecutor(new Cmd(this, value));
         Objects.requireNonNull(getCommand("temp")).setExecutor(new Cmd(this, value));
         thirsty.startThirsty();
-
         startActionBar();
+
+        for(Player p : Bukkit.getOnlinePlayers()) {
+            if (p.getAttribute(Attribute.MAX_HEALTH) != null) {
+                Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25);
+            }
+        }
     }
 
     public void startActionBar() {
