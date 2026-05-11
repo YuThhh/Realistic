@@ -1,5 +1,6 @@
 package org.role.realistic;
 
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -58,10 +59,18 @@ public class TagManager extends Util implements Listener {
                     }
 
                     if (tags.containsKey("cold")) {
-                        addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("cold").getDuration(), tags.get("cold").getAmplifier());
+                        setTempTick(uuid, getTempTick(uuid) +1);
+                        if (getTempTick(uuid) > 1200) {
+                            removeTag(uuid, "cold");
+                            addTag(uuid, "frost", "저체온증", NamedTextColor.AQUA, 600, 1);
+                        }
                     } else if (tags.containsKey("hot")) {
-                        addPotionEffect(p, PotionEffectType.NAUSEA, tags.get("hot").getDuration(), tags.get("hot").getAmplifier());
-                    }
+                        setTempTick(uuid, getTempTick(uuid) +1);
+                        if (getTempTick(uuid) > 1200) {
+                            removeTag(uuid, "hot");
+                            addTag(uuid, "heat", "열사병", NamedTextColor.RED, 600, 1);
+                        }
+                    } else {setTempTick(uuid, getTempTick(uuid) - 1);}
                 }
             }
         }.runTaskTimer(real,0L,1L);

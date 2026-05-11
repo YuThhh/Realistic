@@ -21,7 +21,7 @@ public final class Realistic extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Food(this, value), this);
         getServer().getPluginManager().registerEvents(new Inventory(this, value), this);
         getServer().getPluginManager().registerEvents(new Stamina(this, value), this);
-        getServer().getPluginManager().registerEvents(new Biome(this, value), this);
+        getServer().getPluginManager().registerEvents(new Environment(this, value), this);
         getServer().getPluginManager().registerEvents(new TagManager(this, value), this);
         Objects.requireNonNull(getCommand("thirsty")).setExecutor(new Cmd(this, value));
         Objects.requireNonNull(getCommand("bleed")).setExecutor(new Cmd(this, value));

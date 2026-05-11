@@ -58,11 +58,15 @@ public class Util{
         return 50/3.0*temp + 5/3.0;
     }
 
-    public void setLastJump(UUID uuid, int jump) {values.setLastjump(uuid, jump);}
+    public void setLastJump(UUID uuid, int jump) {values.setLastJump(uuid, jump);}
 
     public int getLastJump(UUID uuid) {return values.getLastJump(uuid);}
 
     public void setPlayerTemp(UUID uuid, double temp) {values.setPlayerTemp(uuid, temp);}
 
     public double getPlayerTemp(UUID uuid) {return values.getPlayerTemp(uuid);}
+
+    public void setTempTick(UUID uuid, double tick) {values.setTempTick(uuid, tick);}
+
+    public double getTempTick(UUID uuid) {return values.getTempTick(uuid);}
 }

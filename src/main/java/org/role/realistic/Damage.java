@@ -3,12 +3,14 @@ package org.role.realistic;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;
@@ -30,6 +32,15 @@ public class Damage extends Util implements Listener {
                     Map<String, Tag> tags = values.getTags(uuid);
                     if (tags.containsKey("bleed")) {
                         p.damage(Math.random()*1.7*tags.get("bleed").getAmplifier());
+                    }
+
+                    if (tags.containsKey("frost")) {
+                        addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("frost").getDuration(), tags.get("frost").getAmplifier());
+                        p.damage(2, DamageSource.builder(DamageType.FREEZE).build());
+                        p.setFreezeTicks(140);
+                    } else if (tags.containsKey("heat")) {
+                        addPotionEffect(p, PotionEffectType.NAUSEA, tags.get("heat").getDuration(), tags.get("heat").getAmplifier());
+                        p.damage(2, DamageSource.builder(DamageType.ON_FIRE).build());
                     }
                 }
             }

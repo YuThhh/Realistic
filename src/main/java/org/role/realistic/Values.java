@@ -11,9 +11,9 @@ public class Values {
     private final Map<UUID, Integer> regenTimeStamina = new ConcurrentHashMap<>();
     private final Map<UUID, Map<String, Tag>> playerTags = new ConcurrentHashMap<>();
     private final Map<UUID, Integer[]> lockInv = new ConcurrentHashMap<>();
-    private final Map<UUID, Integer> lastjump = new ConcurrentHashMap<>();
-    private final Map<UUID, Double> lastRun = new ConcurrentHashMap<>();
+    private final Map<UUID, Integer> lastJump = new ConcurrentHashMap<>();
     private final Map<UUID, Double> playerTemp = new ConcurrentHashMap<>();
+    private final Map<UUID, Double> tempTick = new ConcurrentHashMap<>();
 
     public void setThirsty(UUID PlayerUUID, double thi) {
         thirsty.put(PlayerUUID, thi);
@@ -53,19 +53,19 @@ public class Values {
         return lockInv.getOrDefault(uuid, new Integer[]{0, 0, 0});
     }
 
-    public void setLastjump(UUID uuid, int jump) {
-        lastjump.put(uuid, jump);
+    public void setLastJump(UUID uuid, int jump) {
+        lastJump.put(uuid, jump);
     }
 
     public int getLastJump(UUID uuid) {
-        return lastjump.getOrDefault(uuid, 0);
+        return lastJump.getOrDefault(uuid, 0);
     }
-
-    public void setLastRun(UUID uuid, double run) {lastRun.put(uuid, run);}
-
-    public double getLastRun(UUID uuid) {return lastRun.getOrDefault(uuid, 0.0);}
 
     public void setPlayerTemp(UUID uuid, double temp) {playerTemp.put(uuid, temp);}
 
     public double getPlayerTemp(UUID uuid) {return playerTemp.getOrDefault(uuid, 25.0);}
+
+    public void setTempTick(UUID uuid, double temp) {tempTick.put(uuid, temp);}
+
+    public double getTempTick(UUID uuid) {return tempTick.getOrDefault(uuid, 0.0);}
 }
