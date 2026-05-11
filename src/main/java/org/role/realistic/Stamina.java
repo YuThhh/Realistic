@@ -50,7 +50,7 @@ public class Stamina extends Util implements Listener {
                         setLastJump(uuid, currentJump);
 
                         if (tags.containsKey("heat")) {
-                            currentStamina -= 0.-85;
+                            currentStamina -= 0.85;
                         } else if (tags.containsKey("hot")) {
                             currentStamina -= 0.45;
                         } else {
