@@ -2,12 +2,14 @@ package org.role.realistic;
 
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class TagManager extends Util implements Listener {
@@ -61,6 +63,9 @@ public class TagManager extends Util implements Listener {
                         addPotionEffect(p, PotionEffectType.BLINDNESS, tags.get("shock").getDuration(), tags.get("shock").getAmplifier()-1);
                     }
 
+                    //TODO 감염 효과 추가
+                    if (tags.containsKey("infection")) {}
+
                     // 온도 관련 태그
                     if (tags.containsKey("cold")) {
                         setTempTick(uuid, getTempTick(uuid) +1);
@@ -87,10 +92,16 @@ public class TagManager extends Util implements Listener {
                     }
 
                     //TODO 화상효과 추가
-                    if (tags.containsKey("burn")) {}
+                    if (tags.containsKey("burn") && Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).getValue() > 20) {
+                        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25 * 0.1 * tags.get("burn").getAmplifier());
+                    } else if (!tags.containsKey("burn") && Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).getValue() < 25) {
+                        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25);
+                    }
 
                     //TODO 녹아내림 효과 추가
-                    if (tags.containsKey("melt")) {}
+                    if (tags.containsKey("melt")) {
+                        addPotionEffect(p, PotionEffectType.WEAKNESS, tags.get("melt").getDuration(), tags.get("melt").getAmplifier());
+                    }
 
                     if (tags.containsKey("intoxic")) {
                         double currentThirsty = getThirsty(uuid);
