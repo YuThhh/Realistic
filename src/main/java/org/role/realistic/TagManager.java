@@ -25,6 +25,7 @@ public class TagManager extends Util implements Listener {
                     UUID uuid = p.getUniqueId();
                     Map<String, Tag> tags = getTags(uuid);
 
+                    // 갈증 태그
                     if (tags.containsKey("thirsty")) {
                         addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("thirsty").getDuration(), tags.get("thirsty").getAmplifier());
                     } else if (tags.containsKey("insane_thirsty")) {
@@ -35,10 +36,12 @@ public class TagManager extends Util implements Listener {
                         addPotionEffect(p, PotionEffectType.MINING_FATIGUE, tags.get("deadly_thirsty").getDuration(), tags.get("deadly_thirsty").getAmplifier()-1);
                     }
 
+                    // 기력 태그
                     if (tags.containsKey("exhaust")) {
                         addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("exhaust").getDuration(), tags.get("exhaust").getAmplifier());
                     }
 
+                    // 피해 관련 태그
                     if (tags.containsKey("broken")) {
                         addPotionEffect(p, PotionEffectType.SLOWNESS, tags.get("broken").getDuration(), tags.get("broken").getAmplifier());
                     } else if (tags.containsKey("insane_broken")) {
@@ -58,6 +61,7 @@ public class TagManager extends Util implements Listener {
                         addPotionEffect(p, PotionEffectType.BLINDNESS, tags.get("shock").getDuration(), tags.get("shock").getAmplifier()-1);
                     }
 
+                    // 온도 관련 태그
                     if (tags.containsKey("cold")) {
                         setTempTick(uuid, getTempTick(uuid) +1);
                         if (getTempTick(uuid) > 1200) {
