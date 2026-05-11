@@ -27,10 +27,12 @@ public class Cmd extends Util implements CommandExecutor {
         String commandName = command.getName();
         Player p = player.getPlayer();
         UUID uuid = Objects.requireNonNull(player.getPlayer()).getUniqueId();
+        String s;
 
         switch (commandName) {
             case "thirsty":
-                if (args.length < 1) {
+                s = args[0];
+                if (!s.matches("-?\\d+")) {
                     Objects.requireNonNull(p).sendMessage(Component.text("정수를 입력하여 갈증 수치 조절", NamedTextColor.RED));
                     return true;
                 }
@@ -42,6 +44,11 @@ public class Cmd extends Util implements CommandExecutor {
                 addTag(uuid, "bleed", "출혈", NamedTextColor.RED, 100, 1);
                 return true;
             case "temp":
+                s = args[0];
+                if (!s.matches("-?\\d+")) {
+                    Objects.requireNonNull(p).sendMessage(Component.text("정수를 입력하여 온도 수치 조절", NamedTextColor.RED));
+                    return true;
+                }
                 setPlayerTemp(uuid, Double.parseDouble(args[0]));
             default:
                 return true;
