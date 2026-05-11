@@ -48,7 +48,7 @@ public class Environment extends Util implements Listener {
                         removeTag(uuid, "hot");
                     }
 
-                    if (p.isInLava() || p.getFireTicks() > 0) {
+                    if ((p.isInLava() || p.getFireTicks() > 0) && !tags.containsKey("melt")) {
                         if (p.getFireTicks() > 0) {
                             addTag(uuid, "melt", "녹아내림", NamedTextColor.GOLD, p.getFireTicks(), 1);
                             p.sendMessage(Component.text(p.getFireTicks()));
