@@ -86,6 +86,13 @@ public class TagManager extends Util implements Listener {
                         setPlayerTemp(uuid, playerTemp + 0.05);
                     }
 
+                    //TODO 화상효과 추가
+                    if (tags.containsKey("burn")) {}
+                    if (tags.containsKey("intoxic")) {
+                        double currentThirsty = getThirsty(uuid);
+                        setThirsty(uuid, currentThirsty - 0.03 * tags.get("intoxic").getAmplifier());
+                    }
+
                     if (tags.containsKey("cooling")) {
                         double playerTemp = getPlayerTemp(uuid);
                         setPlayerTemp(uuid, playerTemp - 0.008 * tags.get("cooling").getAmplifier());
