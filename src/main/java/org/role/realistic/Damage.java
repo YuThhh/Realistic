@@ -3,14 +3,12 @@ package org.role.realistic;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;
@@ -81,6 +79,21 @@ public class Damage extends Util implements Listener {
                 addTag(uuid, "concussion", "뇌진탕", NamedTextColor.YELLOW, 250, 3);
             } else if (finalDamage > hp / 10.0) {
                 addTag(uuid, "weak_concussion", "약한 뇌진탕", NamedTextColor.YELLOW, 100, 5);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent e) {
+        if (e.getEntity() instanceof Player p) {
+            UUID uuid = p.getUniqueId();
+            EntityType damagerType = e.getDamager().getType();
+
+
+            if (damagerType.equals(EntityType.ZOMBIE)) {
+                if (Math.random() <= 0.05) {
+                    addTag(uuid, "infection", "감염", NamedTextColor.DARK_RED, 4000, 1);
+                }
             }
         }
     }
