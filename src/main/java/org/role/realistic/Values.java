@@ -6,23 +6,26 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Values {
-    private final Map<UUID, Integer> thirsty = new ConcurrentHashMap<>();
-    private final Map<UUID, Integer> stamina = new ConcurrentHashMap<>();
+    private final Map<UUID, Double> thirsty = new ConcurrentHashMap<>();
+    private final Map<UUID, Double> stamina = new ConcurrentHashMap<>();
     private final Map<UUID, Integer> regenTimeStamina = new ConcurrentHashMap<>();
     private final Map<UUID, Map<String, Tag>> playerTags = new ConcurrentHashMap<>();
     private final Map<UUID, Integer[]> lockInv = new ConcurrentHashMap<>();
+    private final Map<UUID, Integer> lastjump = new ConcurrentHashMap<>();
+    private final Map<UUID, Double> lastRun = new ConcurrentHashMap<>();
+    private final Map<UUID, Double> playerTemp = new ConcurrentHashMap<>();
 
-    public void setThirsty(UUID PlayerUUID, int thi) {
+    public void setThirsty(UUID PlayerUUID, double thi) {
         thirsty.put(PlayerUUID, thi);
     }
 
-    public int getThirsty(UUID PlayerUUID) {
-        return thirsty.getOrDefault(PlayerUUID, 100);
+    public double getThirsty(UUID PlayerUUID) {
+        return thirsty.getOrDefault(PlayerUUID, 100.0);
     }
 
-    public void setStamina(UUID PlayerUUID, int value) {stamina.put(PlayerUUID, value);}
+    public void setStamina(UUID PlayerUUID, double value) {stamina.put(PlayerUUID, value);}
 
-    public int getStamina(UUID PlayerUUID) {return stamina.getOrDefault(PlayerUUID, 100);}
+    public double getStamina(UUID PlayerUUID) {return stamina.getOrDefault(PlayerUUID, 100.0);}
 
     public void setRegenTimeStamina(UUID PlayerUUID, int value) {regenTimeStamina.put(PlayerUUID, value);}
 
@@ -49,4 +52,20 @@ public class Values {
     public Integer[] getLockedInv(UUID uuid) {
         return lockInv.getOrDefault(uuid, new Integer[]{0, 0, 0});
     }
+
+    public void setLastjump(UUID uuid, int jump) {
+        lastjump.put(uuid, jump);
+    }
+
+    public int getLastJump(UUID uuid) {
+        return lastjump.getOrDefault(uuid, 0);
+    }
+
+    public void setLastRun(UUID uuid, double run) {lastRun.put(uuid, run);}
+
+    public double getLastRun(UUID uuid) {return lastRun.getOrDefault(uuid, 0.0);}
+
+    public void setPlayerTemp(UUID uuid, double temp) {playerTemp.put(uuid, temp);}
+
+    public double getPlayerTemp(UUID uuid) {return playerTemp.getOrDefault(uuid, 25.0);}
 }

@@ -41,6 +41,8 @@ public class Cmd extends Util implements CommandExecutor {
                 player.sendMessage(Component.text("출혈 상태가 되었습니다!", NamedTextColor.RED));
                 addTag(uuid, "bleed", "출혈", NamedTextColor.RED, 100, 1);
                 return true;
+            case "temp":
+                setPlayerTemp(uuid, Double.parseDouble(args[0]));
             default:
                 return true;
         }

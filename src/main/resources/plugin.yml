@@ -9,3 +9,5 @@ commands:
     usage: /thirsty
   bleed:
     usage: /bleed
+  temp:
+    usage: /temp

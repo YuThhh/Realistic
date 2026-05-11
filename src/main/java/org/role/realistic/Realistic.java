@@ -12,6 +12,7 @@ import java.util.*;
 public final class Realistic extends JavaPlugin {
     Values value = new Values();
     Thirsty thirsty = new Thirsty(this, value);
+    Util util = new Util(this, value);
 
     @Override
     public void onEnable() {
@@ -24,6 +25,7 @@ public final class Realistic extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new TagManager(this, value), this);
         Objects.requireNonNull(getCommand("thirsty")).setExecutor(new Cmd(this, value));
         Objects.requireNonNull(getCommand("bleed")).setExecutor(new Cmd(this, value));
+        Objects.requireNonNull(getCommand("temp")).setExecutor(new Cmd(this, value));
         thirsty.startThirsty();
 
         startActionBar();
@@ -35,8 +37,9 @@ public final class Realistic extends JavaPlugin {
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     UUID uuid = p.getUniqueId();
-                    int currentThirsty = value.getThirsty(uuid);
-                    int currentStamina = value.getStamina(uuid);
+                    double currentThirsty = value.getThirsty(uuid);
+                    double currentStamina = value.getStamina(uuid);
+                    double currentTemp = util.getPlayerTemp(uuid);
                     Map<String, Tag> tags = value.getTags(uuid);
 
                     List<String> toRemove = new ArrayList<>();
@@ -61,8 +64,9 @@ public final class Realistic extends JavaPlugin {
                         tagComponent = tagComponent.append(eachTag);
                     }
 
-                    Component message = Component.text("갈증: " + currentThirsty, NamedTextColor.BLUE)
-                            .append(Component.text(" 기력: " + currentStamina, NamedTextColor.YELLOW))
+                    Component message = Component.text("갈증: " + (int) currentThirsty, NamedTextColor.BLUE)
+                            .append(Component.text(" 기력: " + (int) currentStamina, NamedTextColor.YELLOW))
+                            .append(Component.text(" 온도: " + String.format("%.1f", currentTemp), NamedTextColor.GOLD))
                             .append(tagComponent);
 
                     p.sendActionBar(message);
