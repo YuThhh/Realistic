@@ -3,8 +3,12 @@ package org.role.realistic;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -29,7 +33,7 @@ public final class Realistic extends JavaPlugin {
         Objects.requireNonNull(getCommand("temp")).setExecutor(new Cmd(this, value));
         thirsty.startThirsty();
         startActionBar();
-
+        setRecipe();
         for(Player p : Bukkit.getOnlinePlayers()) {
             if (p.getAttribute(Attribute.MAX_HEALTH) != null) {
                 Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25);
@@ -81,6 +85,28 @@ public final class Realistic extends JavaPlugin {
                 }
             }
         }.runTaskTimer(this, 0L,1L);
+    }
+
+    public void setRecipe() {
+        Bukkit.resetRecipes();
+        NamespacedKey key = new NamespacedKey("minecraft", "golden_apple");
+        Bukkit.removeRecipe(key);
+        NamespacedKey key2 = new NamespacedKey(this, "golden_apple");
+        ItemStack item = new ItemStack(Material.GOLDEN_APPLE);
+        ShapedRecipe recipe = new ShapedRecipe(key2, item);
+        recipe.shape("ABA", "ACA", "AAA");
+        recipe.setIngredient('A', Material.GOLD_INGOT);
+        recipe.setIngredient('B', Material.DIAMOND);
+        recipe.setIngredient('C', Material.APPLE);
+        Bukkit.addRecipe(recipe);
+        NamespacedKey key3 = new NamespacedKey(this, "enchanted_golden_apple");
+        ItemStack item2 = new ItemStack(Material.ENCHANTED_GOLDEN_APPLE);
+        ShapedRecipe recipe2 = new ShapedRecipe(key3, item2);
+        recipe2.shape("ABA", "ACA", "AAA");
+        recipe2.setIngredient('A', Material.GOLD_BLOCK);
+        recipe2.setIngredient('B', Material.DIAMOND);
+        recipe2.setIngredient('C', Material.APPLE);
+        Bukkit.addRecipe(recipe2);
     }
 
     @Override
