@@ -33,6 +33,16 @@ public class Food extends Util implements Listener {
             setThirsty(uuid, currentThirsty + 15);
         } else if (item == Material.SWEET_BERRIES || item == Material.GLOW_BERRIES) {
             setThirsty(uuid, currentThirsty + 6);
+        } else if (item == Material.GOLDEN_APPLE) {
+            if (getTags(uuid).containsKey("infection")) {
+                removeTag(uuid, "infection");
+            }
+        } else if (item == Material.ENCHANTED_GOLDEN_APPLE) {
+            if (getTags(uuid).containsKey("infection")) {
+                removeTag(uuid, "infection");
+            } else if (getTags(uuid).containsKey("infection2")) {
+                removeTag(uuid, "infection2");
+            }
         }
     }
 
