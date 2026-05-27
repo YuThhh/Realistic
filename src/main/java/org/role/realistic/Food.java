@@ -49,10 +49,10 @@ public class Food extends Util implements Listener {
                         prevLack = getTags(uuid).get("lack_nutri").getAmplifier();
                     }
 
-                    setPlayerGrains(uuid, currentGrains - 0.05);
-                    setPlayerProteins(uuid, currentProteins - 0.05);
-                    setPlayerVegetables(uuid, currentVegetables - 0.05);
-                    setPlayerSugar(uuid, currentSugar - 0.05);
+                    setPlayerGrains(uuid, currentGrains - 0.005);
+                    setPlayerProteins(uuid, currentProteins - 0.005);
+                    setPlayerVegetables(uuid, currentVegetables - 0.005);
+                    setPlayerSugar(uuid, currentSugar - 0.005);
 
                     // 새로운 누적값 계산 (기존 로직 유지하되 더 명확하게)
                     int newOver = 0;
