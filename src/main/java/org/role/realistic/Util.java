@@ -85,12 +85,4 @@ public class Util{
     public void setPlayerSugar(UUID uuid, double value) {values.setPlayerSugar(uuid, value);}
 
     public double getPlayerSugar(UUID uuid) {return values.getPlayerSugar(uuid);}
-
-    public void setPlayerOver(UUID uuid, int value) {values.setPlayerOverNutri(uuid, value);}
-
-    public int getPlayerOver(UUID uuid) {return values.getPlayerOverNutri(uuid);}
-
-    public void setPlayerLack(UUID uuid, int value) {values.setPlayerLackNutri(uuid, value);}
-
-    public int getPlayerLack(UUID uuid) {return values.getPlayerLackNutri(uuid);}
 }

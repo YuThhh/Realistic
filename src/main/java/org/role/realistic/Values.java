@@ -18,8 +18,6 @@ public class Values {
     private final Map<UUID, Double> playerProteins = new ConcurrentHashMap<>();
     private final Map<UUID, Double> playerVegetables = new ConcurrentHashMap<>();
     private final Map<UUID, Double> playerSugar = new ConcurrentHashMap<>();
-    private final Map<UUID, Integer> playerOverNutri = new ConcurrentHashMap<>();
-    private final Map<UUID, Integer> playerLackNutri = new ConcurrentHashMap<>();
 
     public void setThirsty(UUID PlayerUUID, double thi) {
         thirsty.put(PlayerUUID, thi);
@@ -90,12 +88,4 @@ public class Values {
     public void setPlayerSugar(UUID uuid, double sugar) {playerSugar.put(uuid, sugar);}
 
     public double getPlayerSugar(UUID uuid) {return playerSugar.getOrDefault(uuid, 100.0);}
-
-    public void setPlayerOverNutri(UUID uuid, int nutri) {playerOverNutri.put(uuid, nutri);}
-
-    public int getPlayerOverNutri(UUID uuid) {return playerOverNutri.getOrDefault(uuid, 0);}
-
-    public void setPlayerLackNutri(UUID uuid, int nutri) {playerLackNutri.put(uuid, nutri);}
-
-    public int getPlayerLackNutri(UUID uuid) {return playerLackNutri.getOrDefault(uuid, 0);}
 }
