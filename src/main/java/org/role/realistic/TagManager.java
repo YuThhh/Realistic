@@ -116,9 +116,11 @@ public class TagManager extends Util implements Listener {
                     //화상, 영영상태 효과
                     if (tags.containsKey("burn") && !tags.containsKey("lack_nutri")) {
                         Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(35);
+                    } else if (!tags.containsKey("burn") && tags.containsKey("lack_nutri")) {
+                        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(40 - 3 * tags.get("lack_nutri").getAmplifier());
                     } else if (tags.containsKey("burn") && tags.containsKey("lack_nutri")) {
                         Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(35 - 3 * tags.get("lack_nutri").getAmplifier());
-                    }else {
+                    } else {
                         Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(40);
                     }
 
