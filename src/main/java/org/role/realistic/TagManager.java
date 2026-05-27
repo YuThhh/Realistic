@@ -113,11 +113,13 @@ public class TagManager extends Util implements Listener {
                         setPlayerTemp(uuid, playerTemp + 0.05);
                     }
 
-                    //화상효과
-                    if (tags.containsKey("burn") && Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).getValue() > 20) {
-                        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25 * 0.1 * tags.get("burn").getAmplifier());
-                    } else if (!tags.containsKey("burn") && Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).getValue() < 25) {
-                        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25);
+                    //화상, 영영상태 효과
+                    if (tags.containsKey("burn") && !tags.containsKey("lack_nutri")) {
+                        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(35);
+                    } else if (tags.containsKey("burn") && tags.containsKey("lack_nutri")) {
+                        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(35 - 0.5 * tags.get("lack_nutri").getAmplifier());
+                    }else {
+                        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(40);
                     }
 
                     //녹아내림 효과

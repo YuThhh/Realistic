@@ -7,6 +7,9 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,7 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
-public final class Realistic extends JavaPlugin {
+public final class Realistic extends JavaPlugin implements Listener {
     Values value = new Values();
     Thirsty thirsty = new Thirsty(this, value);
     Util util = new Util(this, value);
@@ -34,11 +37,15 @@ public final class Realistic extends JavaPlugin {
         thirsty.startThirsty();
         startActionBar();
         setRecipe();
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            if (p.getAttribute(Attribute.MAX_HEALTH) != null) {
-                Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(25);
-            }
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent e) {
+        Player p = e.getPlayer();
+        if (p.getAttribute(Attribute.MAX_HEALTH) != null) {
+            Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(40);
         }
+
     }
 
     public void startActionBar() {
@@ -50,6 +57,7 @@ public final class Realistic extends JavaPlugin {
                     double currentThirsty = value.getThirsty(uuid);
                     double currentStamina = value.getStamina(uuid);
                     double currentTemp = util.getPlayerTemp(uuid);
+                    double currentNeutri = (util.getPlayerGrains(uuid) + util.getPlayerProteins(uuid) + util.getPlayerVegetables(uuid) + util.getPlayerSugar(uuid))/4.0;
                     Map<String, Tag> tags = value.getTags(uuid);
 
                     // 태그 지속 시간 감소 및 만료된 태그 제거
@@ -78,6 +86,7 @@ public final class Realistic extends JavaPlugin {
                     Component message = Component.text("갈증: " + (int) currentThirsty, NamedTextColor.BLUE)
                             .append(Component.text(" 기력: " + (int) currentStamina, NamedTextColor.YELLOW))
                             .append(Component.text(" 온도: " + String.format("%.1f", currentTemp), NamedTextColor.GOLD))
+                            .append(Component.text("영상 상태: " + (int) currentNeutri, NamedTextColor.GOLD))
                             .append(tagComponent);
 
                     p.sendActionBar(message);

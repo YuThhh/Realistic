@@ -69,4 +69,28 @@ public class Util{
     public void setTempTick(UUID uuid, double tick) {values.setTempTick(uuid, tick);}
 
     public double getTempTick(UUID uuid) {return values.getTempTick(uuid);}
+
+    public void setPlayerGrains(UUID uuid, double value) {values.setPlayerGrains(uuid, value);}
+
+    public double getPlayerGrains(UUID uuid) {return values.getPlayerGrains(uuid);}
+
+    public void setPlayerProteins(UUID uuid, double value) {values.setPlayerProteins(uuid, value);}
+
+    public double getPlayerProteins(UUID uuid) {return values.getPlayerProteins(uuid);}
+
+    public void setPlayerVegetables(UUID uuid, double value) {values.setPlayerVegetables(uuid, value);}
+
+    public double getPlayerVegetables(UUID uuid) {return values.getPlayerVegetables(uuid);}
+
+    public void setPlayerSugar(UUID uuid, double value) {values.setPlayerSugar(uuid, value);}
+
+    public double getPlayerSugar(UUID uuid) {return values.getPlayerSugar(uuid);}
+
+    public void setPlayerOver(UUID uuid, int value) {values.setPlayerOverNutri(uuid, value);}
+
+    public int getPlayerOver(UUID uuid) {return values.getPlayerOverNutri(uuid);}
+
+    public void setPlayerLack(UUID uuid, int value) {values.setPlayerLackNutri(uuid, value);}
+
+    public int getPlayerLack(UUID uuid) {return values.getPlayerLackNutri(uuid);}
 }
