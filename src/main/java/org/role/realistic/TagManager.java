@@ -117,7 +117,7 @@ public class TagManager extends Util implements Listener {
                     if (tags.containsKey("burn") && !tags.containsKey("lack_nutri")) {
                         Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(35);
                     } else if (tags.containsKey("burn") && tags.containsKey("lack_nutri")) {
-                        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(35 - 0.5 * tags.get("lack_nutri").getAmplifier());
+                        Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(35 - 3 * tags.get("lack_nutri").getAmplifier());
                     }else {
                         Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(40);
                     }
