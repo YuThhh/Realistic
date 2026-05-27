@@ -86,7 +86,7 @@ public final class Realistic extends JavaPlugin implements Listener {
                     Component message = Component.text("갈증: " + (int) currentThirsty, NamedTextColor.BLUE)
                             .append(Component.text(" 기력: " + (int) currentStamina, NamedTextColor.YELLOW))
                             .append(Component.text(" 온도: " + String.format("%.1f", currentTemp), NamedTextColor.GOLD))
-                            .append(Component.text("영상 상태: " + (int) currentNeutri, NamedTextColor.GOLD))
+                            .append(Component.text(" 영양 상태: " + (int) currentNeutri, NamedTextColor.GOLD))
                             .append(tagComponent);
 
                     p.sendActionBar(message);
