@@ -55,7 +55,7 @@ public class Util{
     public double getTemperature(Player p) {return p.getLocation().getBlock().getTemperature();}
 
     public double transTemp(double temp) {
-        return 50/3.0*temp + 5/3.0;
+        return 46.8 - 41.53 * Math.pow(0.479, temp);
     }
 
     public void setLastJump(UUID uuid, int jump) {values.setLastJump(uuid, jump);}
